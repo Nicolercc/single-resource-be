@@ -10,5 +10,5 @@ CREATE TABLE tasks (
     deadline DATE DEFAULT NULL, 
     category VARCHAR(50) DEFAULT 'Uncategorized', 
     assigned_to VARCHAR(70) DEFAULT 'Unassigned', 
-     status TEXT DEFAULT 'Pending' 
+    status TEXT DEFAULT 'Pending' 
  );
