@@ -1,6 +1,12 @@
 const express = require("express");
 const tasks = express.Router();
-const { getAllTasks, getTask, createTask } = require("../queries/tasks");
+const {
+  getAllTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
+} = require("../queries/tasks");
 
 //GET - Index
 tasks.get("/", async (req, res) => {
@@ -29,6 +35,29 @@ tasks.post("/", async (req, res) => {
   const body = req.body;
   const newTask = await createTask(body);
   res.status(200).json(newTask);
+});
+
+//Update
+tasks.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+
+  const updatedTask = await updateTask(id, body);
+  if (!updatedTask) {
+    res.status(404).json({ error: "Task did not update." });
+  } else {
+    res.status(200).json(updateTask);
+  }
+});
+
+tasks.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedTask = await deleteTask(id);
+  if (!deletedTask) {
+    res.status(404).json({ error: "Task was not deleted" });
+  } else {
+    res.status(200).json(deletedTask);
+  }
 });
 
 module.exports = tasks;

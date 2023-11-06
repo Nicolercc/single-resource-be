@@ -36,4 +36,36 @@ async function createTask(task) {
     console.log(e);
   }
 }
-module.exports = { getAllTasks, getTask, createTask };
+
+async function updateTask(id, task) {
+  try {
+    const updatedTask = await db.any(
+      "UPDATE tasks SET name=$1, description=$2, deadline=$3, category=$4, assigned_to=$5, status=$6 RETURNING *",
+      [
+        task.name,
+        task.description,
+        task.deadline,
+        task.category,
+        task.assigned_to,
+        task.status,
+        id,
+      ]
+    );
+    return updatedTask;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function deleteTask(id) {
+  try {
+    const deletedTask = await db.one(
+      "DELETE FROM tasks WHERE id=$1 RETURNING *",
+      id
+    );
+    return deletedTask;
+  } catch (e) {
+    console.log(e);
+  }
+}
+module.exports = { getAllTasks, getTask, createTask, updateTask, deleteTask };
