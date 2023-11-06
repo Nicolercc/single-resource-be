@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-//const controller = require("./controllers/")
+const tasksController = require("./controllers/tasksController");
 
 app.use(cors());
 app.use(express.json());
-//app.use("/", )
+app.use("/tasks", tasksController);
 
 app.get("/", (req, res) => {
   res.send("Welcome to our single resource app");
