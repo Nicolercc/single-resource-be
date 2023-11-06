@@ -39,8 +39,8 @@ async function createTask(task) {
 
 async function updateTask(id, task) {
   try {
-    const updatedTask = await db.any(
-      "UPDATE tasks SET name=$1, description=$2, deadline=$3, category=$4, assigned_to=$5, status=$6 RETURNING *",
+    const updatedTask = await db.one(
+      "UPDATE tasks SET name=$1, description=$2, deadline=$3, category=$4, assigned_to=$5, status=$6 WHERE id=$7 RETURNING * ",
       [
         task.name,
         task.description,
