@@ -46,7 +46,7 @@ tasks.put("/:id", async (req, res) => {
   if (!updatedTask) {
     res.status(404).json({ error: "Task did not update." });
   } else {
-    res.status(200).json(updateTask);
+    res.status(200).json(updatedTask);
   }
 });
 
